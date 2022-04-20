@@ -15,4 +15,7 @@ public interface VoucherRepository {
   List<Voucher> getAllVouchers();
 
 
+  List<Voucher> getUnassignedVouchers();
+
+  Voucher update(Voucher voucher);
 }

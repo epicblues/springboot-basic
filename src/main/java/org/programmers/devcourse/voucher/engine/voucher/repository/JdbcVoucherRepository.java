@@ -51,7 +51,7 @@ public class JdbcVoucherRepository implements VoucherRepository, Transactional {
     var type = resultSet.getString("type");
     var discountDegree = resultSet.getInt("discount_degree");
 
-    return VoucherType.from(type).orElseThrow(() -> new SQLException()).getFactory()
+    return VoucherType.from(type).orElseThrow(SQLException::new).getFactory()
         .create(voucherId, discountDegree);
 
   };
@@ -89,6 +89,14 @@ public class JdbcVoucherRepository implements VoucherRepository, Transactional {
     return namedParameterJdbcTemplate.query(
         "SELECT voucher_id, type, discount_degree FROM vouchers",
         voucherRowMapper);
+  }
+
+  @Override
+  public List<Voucher> getUnassignedVouchers() {
+    return namedParameterJdbcTemplate.query(
+        "SELECT voucher_id, type, discount_degree FROM vouchers WHERE owner_id IS NULL",
+        voucherRowMapper
+    );
   }
 
   @Override

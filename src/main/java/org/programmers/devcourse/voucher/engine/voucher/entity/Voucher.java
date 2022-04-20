@@ -10,5 +10,7 @@ public interface Voucher {
 
   long discount(long beforeDiscount);
 
+  UUID getOwnerId();
+
 
 }

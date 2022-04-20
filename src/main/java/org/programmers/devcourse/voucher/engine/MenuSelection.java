@@ -6,13 +6,13 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public enum MenuSelection {
-  EXIT("exit"), CREATE("create"), LIST("list"), BLACKLIST("blacklist");
+  EXIT("exit"), CREATE("create"), LIST("list"), BLACKLIST("blacklist"), WALLET("wallet");
 
   private final String id;
 
-  private static final Map<String,MenuSelection> cache = Arrays.stream(MenuSelection.values()).collect(
-      Collectors.toMap(selection -> selection.id, selection -> selection));
-
+  private static final Map<String, MenuSelection> cache = Arrays.stream(MenuSelection.values())
+      .collect(
+          Collectors.toMap(selection -> selection.id, selection -> selection));
 
 
   MenuSelection(String id) {

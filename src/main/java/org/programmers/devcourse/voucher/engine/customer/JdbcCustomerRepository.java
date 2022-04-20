@@ -160,8 +160,7 @@ public class JdbcCustomerRepository implements CustomerRepository, Transactional
   @Override
   public List<Customer> getAll() {
     try {
-      var customers = namedParameterJdbcTemplate.query("SELECT * FROM customers", mapToCustomer);
-      return customers;
+      return namedParameterJdbcTemplate.query("SELECT * FROM customers", mapToCustomer);
     } catch (DataAccessException exception) {
       logger.error("DB query failed", exception);
       return Collections.emptyList();

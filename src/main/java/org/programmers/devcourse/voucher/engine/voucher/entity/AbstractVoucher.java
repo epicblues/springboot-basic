@@ -1,6 +1,14 @@
 package org.programmers.devcourse.voucher.engine.voucher.entity;
 
+import java.util.UUID;
+import lombok.Getter;
+import lombok.Setter;
+
 public abstract class AbstractVoucher implements Voucher {
+
+  @Getter
+  @Setter
+  protected UUID ownerId = null;
 
   @Override
   public boolean equals(Object obj) {
@@ -19,4 +27,5 @@ public abstract class AbstractVoucher implements Voucher {
   public int hashCode() {
     return this.getVoucherId().hashCode();
   }
+
 }

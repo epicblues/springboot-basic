@@ -50,17 +50,10 @@ public class Console implements Input, Output {
 
   @Override
   public long getVoucherDiscountData(VoucherType voucherType) throws IOException {
-    long discountData = Long.MIN_VALUE;
-    while (discountData == Long.MIN_VALUE) {
-      System.out.print(
-          MessageFormat.format("Type amount of discount(unit: {0}) >> ", voucherType.getUnit()));
-      try {
-        discountData = Long.parseLong(consoleReader.readLine());
-      } catch (NumberFormatException ignored) {
-        System.out.println("정수를 입력해 주세요!");
-      }
-    }
-    return discountData;
+    System.out.print(
+        MessageFormat.format("Type amount of discount(unit: {0}) >> ", voucherType.getUnit()));
+    return readLong();
+
   }
 
   @Override
@@ -68,6 +61,32 @@ public class Console implements Input, Output {
 
     System.out.println(MessageFormat.format("[ERROR] : {0}", message));
 
+  }
+
+  @Override
+  public String getString(String... instructions) throws IOException {
+    for (String instruction : instructions) {
+      System.out.println(instruction);
+    }
+    return consoleReader.readLine();
+  }
+
+  @Override
+  public long getLong(String... instructions) throws IOException {
+    for (String instruction : instructions) {
+      System.out.println(instruction);
+    }
+    return readLong();
+  }
+
+  private long readLong() throws IOException {
+    while (true) {
+      try {
+        return Long.parseLong(consoleReader.readLine());
+      } catch (NumberFormatException numberFormatException) {
+        System.out.println("정수로 입력해야 합니다.");
+      }
+    }
   }
 
   @Override

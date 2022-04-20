@@ -7,5 +7,8 @@ import org.programmers.devcourse.voucher.engine.voucher.entity.Voucher;
 public interface VoucherFactory {
 
 
-  Voucher create(UUID id, long discountDegree) throws VoucherException;
+  Voucher create(UUID id, long discountDegree, UUID ownerId) throws VoucherException;
+
+  Voucher create(UUID id, long discountDegree);
+
 }

@@ -43,6 +43,7 @@ public class FileVoucherRepository implements
 
     Arrays.stream(fileChannel.readAllLines()).forEach(line -> {
       var fields = line.split(DELIMITER_REGEX);
+
       var voucherId = UUID.fromString(fields[0]);
       var voucherMapper = VoucherType.from(fields[1]);
       if (voucherMapper.isEmpty()) {
@@ -50,7 +51,7 @@ public class FileVoucherRepository implements
       }
 
       var discountDegree = Long.parseLong(fields[2].replace(",", ""));
-
+      
       try {
         memoryStorage.put(voucherId,
             voucherMapper.get().getFactory().create(voucherId, discountDegree));
@@ -83,6 +84,16 @@ public class FileVoucherRepository implements
   @Override
   public List<Voucher> getAllVouchers() {
     return List.copyOf(memoryStorage.values());
+  }
+
+  @Override
+  public List<Voucher> getUnassignedVouchers() {
+    return null;
+  }
+
+  @Override
+  public Voucher update(Voucher voucher) {
+    return null;
   }
 
 

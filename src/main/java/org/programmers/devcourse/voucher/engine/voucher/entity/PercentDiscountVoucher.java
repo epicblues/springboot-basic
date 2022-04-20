@@ -3,22 +3,34 @@ package org.programmers.devcourse.voucher.engine.voucher.entity;
 import java.text.MessageFormat;
 import java.util.UUID;
 import org.programmers.devcourse.voucher.engine.exception.VoucherDiscountDegreeOutOfRangeException;
+import org.programmers.devcourse.voucher.engine.exception.VoucherException;
 import org.programmers.devcourse.voucher.engine.voucher.VoucherFactory;
 
 public class PercentDiscountVoucher extends
     AbstractVoucher {
 
-  public static final VoucherFactory factory = PercentDiscountVoucher::new;
+  public static final VoucherFactory factory = new VoucherFactory() {
+    @Override
+    public Voucher create(UUID id, long discountDegree, UUID ownerId) throws VoucherException {
+      return new PercentDiscountVoucher(id, discountDegree, ownerId);
+    }
+
+    @Override
+    public Voucher create(UUID id, long discountDegree) {
+      return new PercentDiscountVoucher(id, discountDegree, null);
+    }
+  };
   private final UUID voucherId;
   private final long discountPercent;
 
-  private PercentDiscountVoucher(UUID voucherId, long discountPercent)
+  private PercentDiscountVoucher(UUID voucherId, long discountPercent, UUID ownerId)
       throws VoucherDiscountDegreeOutOfRangeException {
     if (discountPercent > 100 || discountPercent <= 0) {
       throw new VoucherDiscountDegreeOutOfRangeException("Discount percent out of range(1-100)");
     }
     this.voucherId = voucherId;
     this.discountPercent = discountPercent;
+    this.ownerId = ownerId;
   }
 
 

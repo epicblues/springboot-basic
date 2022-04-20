@@ -11,6 +11,7 @@ import org.programmers.devcourse.voucher.engine.io.Input;
 import org.programmers.devcourse.voucher.engine.io.Output;
 import org.programmers.devcourse.voucher.engine.voucher.VoucherService;
 import org.programmers.devcourse.voucher.engine.voucher.VoucherType;
+import org.programmers.devcourse.voucher.engine.wallet.WalletController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -24,13 +25,16 @@ public class Controller {
   private final VoucherService voucherService;
   private final BlackListService blackListService;
 
+  private final WalletController walletController;
+
   public Controller(Input input, Output output,
       VoucherService voucherService,
-      BlackListService blackListService) {
+      BlackListService blackListService, WalletController walletController) {
     this.input = input;
     this.output = output;
     this.voucherService = voucherService;
     this.blackListService = blackListService;
+    this.walletController = walletController;
   }
 
 
@@ -50,6 +54,9 @@ public class Controller {
               break;
             case BLACKLIST:
               showBlacklist();
+              break;
+            case WALLET:
+              walletController.initialize();
               break;
             default:
           }

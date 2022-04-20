@@ -14,4 +14,8 @@ public interface Input extends AutoCloseable {
   long getVoucherDiscountData(VoucherType voucherType) throws IOException;
 
   void printInputError(String warningMessage);
+
+  String getString(String... instructions) throws IOException;
+
+  long getLong(String... instructions) throws IOException;
 }
